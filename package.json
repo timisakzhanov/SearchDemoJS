@@ -1,0 +1,11 @@
+{
+  "name": "search_demo",
+  "version": "1.0.0",
+  "description": "This app makes request to a search engines, parses response and displays result to user",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
+}
