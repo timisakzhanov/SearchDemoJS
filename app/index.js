@@ -1,14 +1,14 @@
 'use strict'
 
-const googleSearcher = require('./search/google_search')
-const yahooSearcher = require('./search/yahoo_search')
+const SearchFactory = require('./search/factory')
 const readline = require('readline');
-
 const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 	prompt: 'query> '
 })
+
+let searchFactory = new SearchFactory();
 
 let searchCallback = function(result) {
 	console.log('title: ' + result.title)
@@ -17,15 +17,14 @@ let searchCallback = function(result) {
 }
 
 function makeSearch(query, engine) {
-	if (engine === 'google') {
-		googleSearcher.search(query, searchCallback)
-		return
-	} 
-	if (engine === 'yahoo') {
-		yahooSearcher.search(query, searchCallback)
-		return
+	try {
+		let searcher = searchFactory.createSearcher(engine)
+		searcher.search(query, searchCallback)
+	} catch(e) {
+		console.log(e)
+		rl.close()
 	}
-	console.log('Wrong search engine')
+	
 }
 
 console.log('Enter query: ')
