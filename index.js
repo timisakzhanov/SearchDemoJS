@@ -1,1 +1,1 @@
-console.log("this is index.js")
+require('./app/index.js')
