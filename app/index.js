@@ -5,17 +5,16 @@ const SearchFactory = require('./search/factory')
 const searchFactory = new SearchFactory();
 
 function makeSearch(query, engine) {
-	try {
-		let searcher = searchFactory.createSearcher(engine)
-		searcher.search(query, (result) => {
-			io.writeMessage('title: ' + result.title)
-			io.writeMessage('url: ' + result.url)
-			io.closeIO()
-		})
-	} catch(e) {
-		io.writeMessage(e)
-		io.closeIO()
-	}
+	return new Promise((resolve, reject) => {
+		try {
+			let searcher = searchFactory.createSearcher(engine)
+			searcher.search(query, (result) => {
+				resolve(result)
+			})
+		} catch(e) {
+			reject(e)
+		}
+	})
 }
 
 function obtainUserInput() {
@@ -23,7 +22,16 @@ function obtainUserInput() {
 		.then((query) => {
 			io.promptInput('Select search engine (google, yahoo): ')
 				.then((engine) => {
-					makeSearch(query, engine)			
+					makeSearch(query, engine)
+						.then((result) => {
+							io.writeMessage('title: ' + result.title)
+							io.writeMessage('url: ' + result.url)
+							io.closeIO()
+						})
+						.catch((reason) => {
+							io.writeMessage(e)
+							io.closeIO()
+						})
 				})
 		})
 }
