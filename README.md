@@ -7,7 +7,7 @@ Application performs search request to a selected search engine(google or yahoo)
 
 I implemented search functionality using abstract factory. This will allow us to easily add other search engines in the future.
   ```searcher``` - object which contains common methods to fetch data.
-  ```googleSearcher```, ```yahooSearcher``` - objects that extend ```searcher``` and contain specific parameters such as ```baseUrl``` and ```parseHtml```. In order to parse html I used cheerio library (https://github.com/cheeriojs/cheerio)
+  ```googleSearcher```, ```yahooSearcher``` - objects that extend ```searcher``` and contain specific parameters such as ```baseUrl``` and ```parseHtml```. In order to parse html I used cheerio library (https://github.com/cheeriojs/cheerio).
   ```SearcheFactory``` - constructor function that creates and returns required searcher object
   
  
@@ -21,6 +21,7 @@ To communicate with user I created ```io``` object that and communicates with us
   
 # How to run
 
+In terminal:
 - navigare to the root directory
 - install node
 - install required dependencies (npm install)
