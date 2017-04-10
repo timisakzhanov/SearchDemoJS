@@ -1,7 +1,7 @@
 'use strict'
 
 const cheerio = require('cheerio')
-const searcher = require('./search') 
+const searcher = require('./searcher') 
 const googleSearcher = Object.create(searcher)
 
 googleSearcher.baseUrl = "http://www.google.com/search?q="

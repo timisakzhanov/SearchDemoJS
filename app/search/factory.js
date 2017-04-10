@@ -1,6 +1,6 @@
 'use strict'
-const googleSearcher = require('./google_search')
-const yahooSearcher = require('./yahoo_search')
+const googleSearcher = require('./google_searcher')
+const yahooSearcher = require('./yahoo_searcher')
 
 function SearchFactory() {
 	this.createSearcher = (type) => {

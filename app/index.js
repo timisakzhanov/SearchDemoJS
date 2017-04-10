@@ -2,19 +2,16 @@
 
 const io = require('./io/io')
 const SearchFactory = require('./search/factory')
-
-let searchFactory = new SearchFactory();
-
-let searchCallback = function(result) {
-	console.log('title: ' + result.title)
-	console.log('url: ' + result.url)
-	process.exit(0)
-}
+const searchFactory = new SearchFactory();
 
 function makeSearch(query, engine) {
 	try {
 		let searcher = searchFactory.createSearcher(engine)
-		searcher.search(query, searchCallback)
+		searcher.search(query, (result) => {
+			io.writeMessage('title: ' + result.title)
+			io.writeMessage('url: ' + result.url)
+			io.closeIO()
+		})
 	} catch(e) {
 		io.writeMessage(e)
 		io.closeIO()
