@@ -27,23 +27,28 @@ function makeSearch(query, engine) {
 	
 }
 
-console.log('Enter query: ')
 
-let query = ''
-let engine = ''
+function obtainUserInput() {
+	let query = ''
+	let engine = ''
 
-rl.on('line', (line) => {
-	let input = line.trim();
-	if (input === 'exit') {
-		console.log('Have a great day!')
-		process.exit(0)
-	}
+	rl.on('line', (line) => {
+		let input = line.trim()
+		if (input === 'exit') {
+			console.log('Have a great day!')
+			process.exit(0)
+		}
 
-	if (query === '') {
-		query = input
-		console.log('Enter engine: ')
-	} else {
-		engine = input
-		makeSearch(query, engine)
-	}
-})
+		if (query === '') {
+			query = input
+			console.log('Enter engine: ')
+		} else {
+			engine = input
+			makeSearch(query, engine)
+		}
+	})
+
+	console.log('Enter query: ')
+}
+
+obtainUserInput()
