@@ -1,6 +1,7 @@
 'use strict'
 
-const search_module = require('./search')
+const googleSearcher = require('./search/google_search')
+const yahooSearcher = require('./search/yahoo_search')
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -8,6 +9,24 @@ const rl = readline.createInterface({
 	output: process.stdout,
 	prompt: 'query> '
 })
+
+let searchCallback = function(result) {
+	console.log('title: ' + result.title)
+	console.log('url: ' + result.url)
+	process.exit(0)
+}
+
+function makeSearch(query, engine) {
+	if (engine === 'google') {
+		googleSearcher.search(query, searchCallback)
+		return
+	} 
+	if (engine === 'yahoo') {
+		yahooSearcher.search(query, searchCallback)
+		return
+	}
+	console.log('Wrong search engine')
+}
 
 console.log('Enter query: ')
 
@@ -26,10 +45,6 @@ rl.on('line', (line) => {
 		console.log('Enter engine: ')
 	} else {
 		engine = input
-		search_module.searcher.search(query, (result) => {
-			console.log('title: ' + result.title)
-			console.log('url: ' + result.url)
-			process.exit(0)
-		})
+		makeSearch(query, engine)
 	}
 })
